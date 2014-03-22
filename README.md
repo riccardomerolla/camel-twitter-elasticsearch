@@ -7,7 +7,7 @@ Start camel route with:
 
 - mvn camel:run 
 
-and watch tweets stored in Elasticsearch
+and watch tweets stored in Elasticsearch (the cluster has to be named elasticsearch or use docker container above)
 
 - curl -XGET 'http://localhost:9200/twitter/tweet/_count'
 
