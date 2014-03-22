@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:camel="http://camel.apache.org/schema/spring"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+
+    <camel:camelContext xmlns="http://camel.apache.org/schema/spring">
+        <propertyPlaceholder id="properties" location="twitter.properties"/>
+
+        <camel:dataFormats>
+            <camel:json id="gson" library="Gson"/>
+        </camel:dataFormats>
+
+        <camel:route>
+            <from uri="twitter://streaming/filter?type=event&amp;keywords=renzi&amp;consumerKey={{consumer.key}}&amp;consumerSecret={{consumer.secret}}&amp;accessToken={{access.token}}&amp;accessTokenSecret={{access.token.secret}}"/>
+            <marshal ref="gson"/>
+            <to uri="elasticsearch://elasticsearch?operation=INDEX&amp;indexName=twitter&amp;indexType=tweet&amp;ip=localhost"/>
+
+        </camel:route>
+
+    </camel:camelContext>
+
+</beans>
