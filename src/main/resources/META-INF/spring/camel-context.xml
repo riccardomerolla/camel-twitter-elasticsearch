@@ -15,8 +15,8 @@
             <camel:json id="gson" library="Gson"/>
         </camel:dataFormats>
 
-        <camel:route>
-            <from uri="twitter://streaming/filter?type=event&amp;keywords=renzi&amp;consumerKey={{consumer.key}}&amp;consumerSecret={{consumer.secret}}&amp;accessToken={{access.token}}&amp;accessTokenSecret={{access.token.secret}}"/>
+        <camel:route streamCache="true">
+            <from uri="twitter://streaming/filter?type=event&amp;keywords=bieber&amp;consumerKey={{consumer.key}}&amp;consumerSecret={{consumer.secret}}&amp;accessToken={{access.token}}&amp;accessTokenSecret={{access.token.secret}}"/>
             <marshal ref="gson"/>
             <to uri="elasticsearch://elasticsearch?operation=INDEX&amp;indexName=twitter&amp;indexType=tweet&amp;ip=localhost"/>
 
